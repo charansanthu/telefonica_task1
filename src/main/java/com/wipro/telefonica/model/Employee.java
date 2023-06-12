@@ -85,4 +85,24 @@ public class Employee {
 	public void setDesignation(String designation) {
 		this.designation = designation;
 	}
+	public Employee(long employeeid, String name, String address, String sex, LocalDate dob, LocalDate doj,
+			String jobtype, String department, String location, String status, String designation) {
+		super();
+		this.employeeid = employeeid;
+		this.name = name;
+		this.address = address;
+		this.sex = sex;
+		this.dob = dob;
+		this.doj = doj;
+		this.jobtype = jobtype;
+		this.department = department;
+		this.location = location;
+		this.status = status;
+		this.designation = designation;
+	}
+	public Employee() {
+		super();
+		//TODO Auto-generated constructor stub
+	}
+	
 }
