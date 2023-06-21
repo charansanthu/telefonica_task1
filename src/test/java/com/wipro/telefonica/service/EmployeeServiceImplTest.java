@@ -10,6 +10,7 @@ import java.util.Optional;
 
 import com.wipro.telefonica.exception.EmployeeAlreadyExistException;
 import com.wipro.telefonica.exception.EmployeeDoesntExistException;
+import com.wipro.telefonica.exception.InvalidInputsException;
 import com.wipro.telefonica.model.Employee;
 import com.wipro.telefonica.repository.EmployeeRepository;
 
@@ -46,7 +47,7 @@ class EmployeeServiceImplTest {
 		assertThrows(EmployeeAlreadyExistException.class, ()->employeeServiceImpl.createEmp(employee));
 	}
 	@Test
-	public void createEmp() throws EmployeeAlreadyExistException {
+	public void createEmp() throws EmployeeAlreadyExistException,InvalidInputsException {
 //		Mockito.when(employeeRepository.findById(anyLong())).thenReturn(null);
 		when(employeeRepository.save(employee)).thenReturn(employee);
 		assertEquals(true, employeeServiceImpl.createEmp(employee)!=null);

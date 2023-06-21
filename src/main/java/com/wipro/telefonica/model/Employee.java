@@ -4,20 +4,32 @@ import java.time.LocalDate;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Employee {
 	@Id
+	@NotNull
 	private long employeeid;
+	@NotNull
 	private String name;
+	@NotNull
 	private String address;
+	@NotNull
 	private String sex;
+	@NotNull
 	private LocalDate dob = LocalDate.now();
+	@NotNull
 	private LocalDate doj = LocalDate.now();
+	@NotNull
 	private String jobtype;
+	@NotNull
 	private String department;
+	@NotNull
 	private String location;
+	@NotNull
 	private String status;
+	@NotNull
 	private String designation;
 	public long getEmployeeid() {
 		return employeeid;

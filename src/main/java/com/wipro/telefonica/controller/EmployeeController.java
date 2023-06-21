@@ -2,6 +2,7 @@ package com.wipro.telefonica.controller;
 
 import com.wipro.telefonica.exception.EmployeeAlreadyExistException;
 import com.wipro.telefonica.exception.EmployeeDoesntExistException;
+import com.wipro.telefonica.exception.InvalidInputsException;
 import com.wipro.telefonica.model.Employee;
 import com.wipro.telefonica.service.EmployeeService;
 
@@ -31,7 +32,9 @@ public class EmployeeController {
 			Employee employee2=employeeService.createEmp(employee);
 			responseEntity = new ResponseEntity<Employee>(employee2, HttpStatus.OK);
 		}catch(EmployeeAlreadyExistException e) {
-			responseEntity = new ResponseEntity<>("Employee already exist", HttpStatus.CONFLICT);
+			responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+		}catch(InvalidInputsException e) {
+			responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
 		}
 		return responseEntity;
 	}

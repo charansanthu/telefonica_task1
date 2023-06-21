@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.wipro.telefonica.exception.EmployeeAlreadyExistException;
 import com.wipro.telefonica.exception.EmployeeDoesntExistException;
+import com.wipro.telefonica.exception.InvalidInputsException;
 import com.wipro.telefonica.model.Employee;
 import com.wipro.telefonica.repository.EmployeeRepository;
 
@@ -15,10 +16,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	@Override
-	public Employee createEmp(Employee employee) throws EmployeeAlreadyExistException {
+	public Employee createEmp(Employee employee) throws EmployeeAlreadyExistException, InvalidInputsException {
 		Optional<Employee> optional=employeeRepository.findById(employee.getEmployeeid());
 		if(!optional.isEmpty()) {
-			throw new EmployeeAlreadyExistException();
+			throw new EmployeeAlreadyExistException("Employee Already Exist");
+		}
+		if(employee.getEmployeeid()==0) {
+			throw new InvalidInputsException("Invalid parameters");
 		}
 		return employeeRepository.save(employee);
 	}

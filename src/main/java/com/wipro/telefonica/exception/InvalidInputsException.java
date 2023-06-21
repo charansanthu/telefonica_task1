@@ -1,12 +1,12 @@
 package com.wipro.telefonica.exception;
 
-public class EmployeeDoesntExistException extends Exception{
+public class InvalidInputsException extends Exception{
 
-	public EmployeeDoesntExistException() {
+	public InvalidInputsException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public EmployeeDoesntExistException(String message) {
+	public InvalidInputsException(String message) {
 		super(message);
 		// TODO Auto-generated constructor stub
 	}
