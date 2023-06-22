@@ -21,7 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService{
 		if(!optional.isEmpty()) {
 			throw new EmployeeAlreadyExistException("Employee Already Exist");
 		}
-		if(employee.getEmployeeid()==0) {
+		if(employee.getEmployeeid()==0 || Long.valueOf(employee.getEmployeeid())==null) {
 			throw new InvalidInputsException("Invalid parameters");
 		}
 		return employeeRepository.save(employee);
