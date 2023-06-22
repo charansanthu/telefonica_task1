@@ -1,5 +1,6 @@
 package com.wipro.telefonica.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,14 +17,14 @@ import com.wipro.telefonica.validations.EmployeeValidations;
 public class EmployeeServiceImpl implements EmployeeService{
 	@Autowired
 	private EmployeeRepository employeeRepository;
-	private EmployeeValidations employeeValidations;
+	private EmployeeValidations employeeValidations= new EmployeeValidations();
 	@Override
 	public Employee createEmp(Employee employee) throws EmployeeAlreadyExistException, InvalidInputsException {
 		Optional<Employee> optional=employeeRepository.findById(employee.getEmployeeid());
 		if(!optional.isEmpty()) {
 			throw new EmployeeAlreadyExistException("Employee Already Exist");
-		}if(employeeValidations.validations(employee)==0) {
-			throw new InvalidInputsException("Invalid parameters");
+		}if(!employeeValidations.validations(employee).equals("1")) {
+			throw new InvalidInputsException(employeeValidations.validations(employee));
 		}
 		return employeeRepository.save(employee);
 	}
@@ -47,8 +48,8 @@ public class EmployeeServiceImpl implements EmployeeService{
 	@Override
 	public Employee updateEmp(Employee employee) throws EmployeeDoesntExistException, InvalidInputsException {
 		Optional<Employee> optional=employeeRepository.findById(employee.getEmployeeid());
-		if(employeeValidations.validations(employee)==0) {
-			throw new InvalidInputsException("Invalid parameters");
+		if(!employeeValidations.validations(employee).equals("1")) {
+			throw new InvalidInputsException(employeeValidations.validations(employee));
 		}
 		if(!optional.isEmpty()) {
 			Employee e =optional.get();
@@ -64,6 +65,13 @@ public class EmployeeServiceImpl implements EmployeeService{
 			return employeeRepository.save(e);
 		}
 		throw new EmployeeDoesntExistException();
+	}
+	@Override
+	public List<Employee> getallemployees() throws EmployeeDoesntExistException {
+		if(employeeRepository.findAll().size()==0) {
+			throw new EmployeeDoesntExistException("no employees");
+		}
+		return employeeRepository.findAll();
 	}
 
 }

@@ -105,5 +105,11 @@ public class Employee {
 		super();
 		//TODO Auto-generated constructor stub
 	}
+	@Override
+	public String toString() {
+		return "Employee [employeeid=" + employeeid + ", name=" + name + ", address=" + address + ", sex=" + sex
+				+ ", dob=" + dob + ", doj=" + doj + ", jobtype=" + jobtype + ", department=" + department
+				+ ", location=" + location + ", status=" + status + ", designation=" + designation + "]";
+	}
 	
 }

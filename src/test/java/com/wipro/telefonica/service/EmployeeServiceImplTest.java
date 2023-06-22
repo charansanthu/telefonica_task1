@@ -47,13 +47,13 @@ class EmployeeServiceImplTest {
 	public void createEmp() throws EmployeeAlreadyExistException,InvalidInputsException {
 //		Mockito.when(employeeRepository.findById(anyLong())).thenReturn(null);
 		when(employeeRepository.save(employee)).thenReturn(employee);
-		when(employeeValidations.validations(employee)).thenReturn(1);
+		when(employeeValidations.validations(employee)).thenReturn("1");
 		assertEquals(true, employeeServiceImpl.createEmp(employee)!=null);
 	}
 	@Test
 	public void createEmpInvalidException() {
 //		Mockito.when(employeeRepository.findById(anyLong())).thenReturn(optional);
-		when(employeeValidations.validations(employee)).thenReturn(0);
+		when(employeeValidations.validations(employee)).thenReturn("Invalid id");
 		assertThrows(InvalidInputsException.class, ()->employeeServiceImpl.createEmp(employee));
 	}
 	@Test
@@ -82,18 +82,18 @@ class EmployeeServiceImplTest {
 	@Test
 	public void updateEmp() throws EmployeeDoesntExistException, InvalidInputsException {
 		Mockito.when(employeeRepository.findById(anyLong())).thenReturn(optional);
-		when(employeeValidations.validations(employee)).thenReturn(1);
+		when(employeeValidations.validations(employee)).thenReturn("1");
 		when(employeeRepository.save(employee)).thenReturn(employee);
 		assertEquals(employee.getName(), employeeServiceImpl.updateEmp(employee).getName());
 	}
 	@Test
 	public void updateEmpInvalidException() {
-		when(employeeValidations.validations(employee)).thenReturn(0);
+		when(employeeValidations.validations(employee)).thenReturn("Invalid id");
 		assertThrows(InvalidInputsException.class,()-> employeeServiceImpl.updateEmp(employee));
 	}
 	@Test
 	public void updateEmpException() {
-		when(employeeValidations.validations(employee)).thenReturn(1);
+		when(employeeValidations.validations(employee)).thenReturn("1");
 		assertThrows(EmployeeDoesntExistException.class,()-> employeeServiceImpl.updateEmp(employee));
 	}
 }
