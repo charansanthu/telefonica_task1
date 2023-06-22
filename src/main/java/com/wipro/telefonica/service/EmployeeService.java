@@ -9,5 +9,5 @@ public interface EmployeeService {
 	public Employee createEmp(Employee employee) throws EmployeeAlreadyExistException,InvalidInputsException;
 	public Employee searchEmp(long id) throws EmployeeDoesntExistException;
 	public Employee deleteEmp(long id) throws EmployeeDoesntExistException;
-	public Employee updateEmp(Employee employee) throws EmployeeDoesntExistException;
+	public Employee updateEmp(Employee employee) throws EmployeeDoesntExistException, InvalidInputsException;
 }

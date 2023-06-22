@@ -46,4 +46,9 @@ public class EmployeeExceptionController {
 		ResponseEntity responseEntity = new ResponseEntity<>("invalid parameters", HttpStatus.CONFLICT);
 		return responseEntity;
     }
+	@ExceptionHandler(NullPointerException.class)
+	public ResponseEntity<?> handleNullPointException(NullPointerException ex){
+		ResponseEntity responseEntity = new ResponseEntity<>("invalid parameters", HttpStatus.CONFLICT);
+		return responseEntity;
+	}
 }

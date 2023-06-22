@@ -60,12 +60,14 @@ public class EmployeeController {
 		return responseEntity;
 	}
 	@PutMapping("/updateEmpDetails")
-	public ResponseEntity<?> updateEmpDetails(@RequestBody Employee employee) throws EmployeeDoesntExistException{
+	public ResponseEntity<?> updateEmpDetails(@RequestBody Employee employee) throws EmployeeDoesntExistException, InvalidInputsException{
 		try {
 			Employee employee1=employeeService.updateEmp(employee);
 			responseEntity = new ResponseEntity<Employee>(employee1, HttpStatus.OK);
 		}catch(EmployeeDoesntExistException e) {
 			responseEntity = new ResponseEntity<>("Employee Doesn't exist", HttpStatus.CONFLICT);
+		}catch(InvalidInputsException e) {
+			responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
 		}
 		return responseEntity;
 	}

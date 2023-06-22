@@ -10,18 +10,19 @@ import com.wipro.telefonica.exception.EmployeeDoesntExistException;
 import com.wipro.telefonica.exception.InvalidInputsException;
 import com.wipro.telefonica.model.Employee;
 import com.wipro.telefonica.repository.EmployeeRepository;
+import com.wipro.telefonica.validations.EmployeeValidations;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService{
 	@Autowired
 	private EmployeeRepository employeeRepository;
+	private EmployeeValidations employeeValidations;
 	@Override
 	public Employee createEmp(Employee employee) throws EmployeeAlreadyExistException, InvalidInputsException {
 		Optional<Employee> optional=employeeRepository.findById(employee.getEmployeeid());
 		if(!optional.isEmpty()) {
 			throw new EmployeeAlreadyExistException("Employee Already Exist");
-		}
-		if(employee.getEmployeeid()==0 || Long.valueOf(employee.getEmployeeid())==null) {
+		}if(employeeValidations.validations(employee)==0) {
 			throw new InvalidInputsException("Invalid parameters");
 		}
 		return employeeRepository.save(employee);
@@ -44,8 +45,11 @@ public class EmployeeServiceImpl implements EmployeeService{
 		throw new EmployeeDoesntExistException();
 	}
 	@Override
-	public Employee updateEmp(Employee employee) throws EmployeeDoesntExistException {
+	public Employee updateEmp(Employee employee) throws EmployeeDoesntExistException, InvalidInputsException {
 		Optional<Employee> optional=employeeRepository.findById(employee.getEmployeeid());
+		if(employeeValidations.validations(employee)==0) {
+			throw new InvalidInputsException("Invalid parameters");
+		}
 		if(!optional.isEmpty()) {
 			Employee e =optional.get();
 			e.setAddress(employee.getAddress());
