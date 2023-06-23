@@ -30,18 +30,7 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	private ResponseEntity responseEntity;
 
-	@GetMapping("/get")
-    public ResponseEntity<List<Employee>> get() throws EmployeeDoesntExistException
-    {
-		try {
-        List<Employee> model = employeeService.getallemployees();
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<List<Employee>>(model, headers, HttpStatus.OK);
-		}catch(EmployeeDoesntExistException e) {
-			responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
-		}
-		return responseEntity;
-    }
+	
 	@PostMapping("/createEmp")
 	public ResponseEntity<?> createEmp(@RequestBody Employee employee) throws EmployeeAlreadyExistException{
 		try {
@@ -86,5 +75,16 @@ public class EmployeeController {
 		}
 		return responseEntity;
 	}
-	
+	@GetMapping("/generateReport")
+    public ResponseEntity<List<Employee>> get() throws EmployeeDoesntExistException
+    {
+		try {
+        List<Employee> model = employeeService.getallemployees();
+        HttpHeaders headers = new HttpHeaders();
+        return new ResponseEntity<List<Employee>>(model, headers, HttpStatus.OK);
+		}catch(EmployeeDoesntExistException e) {
+			responseEntity = new ResponseEntity<>(e.getMessage(), HttpStatus.CONFLICT);
+		}
+		return responseEntity;
+    }
 }

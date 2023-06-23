@@ -40,15 +40,14 @@ public class EmployeeExceptionController {
 		exceptionResponse.setErrorMessage(exception.getMessage());
 		return exceptionResponse;
 	}
-//	@ExceptionHandler(JsonParseException.class)
-//    public ResponseEntity<Object> handleException(JsonParseException ex) {
-////        LOG.error("Error parse json " +  ex.getMessage());
-//		ResponseEntity responseEntity = new ResponseEntity<>("invalid parameters", HttpStatus.CONFLICT);
-//		return responseEntity;
-//    }
-//	@ExceptionHandler(NullPointerException.class)
-//	public ResponseEntity<?> handleNullPointException(NullPointerException ex){
-//		ResponseEntity responseEntity = new ResponseEntity<>("invalid parameters", HttpStatus.CONFLICT);
-//		return responseEntity;
-//	}
+	@ExceptionHandler(JsonParseException.class)
+    public ResponseEntity<Object> handleException(JsonParseException ex) {
+		ResponseEntity responseEntity = new ResponseEntity<>("invalid parameters", HttpStatus.CONFLICT);
+		return responseEntity;
+    }
+	@ExceptionHandler(NullPointerException.class)
+	public ResponseEntity<?> handleNullPointException(NullPointerException ex){
+		ResponseEntity responseEntity = new ResponseEntity<>("invalid parameters", HttpStatus.CONFLICT);
+		return responseEntity;
+	}
 }
